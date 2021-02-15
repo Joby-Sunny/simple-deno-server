@@ -7,6 +7,6 @@ export interface GlossaryItem {
 }
 
 export interface GlossaryListItem {
-	id: number;
-	title: string;
+  id: number;
+  title: string;
 }

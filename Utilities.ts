@@ -8,3 +8,16 @@ export function parseQueryParams(
   }
   return response;
 }
+
+export async function doesFileExist(filePath: string) {
+  try {
+    const fileStatus = await Deno.lstat(filePath);
+    return fileStatus && fileStatus.isFile;
+  } catch (error) {
+    if (error && error instanceof Deno.errors.NotFound) {
+      return false;
+    } else {
+      throw error;
+    }
+  }
+}

@@ -1,6 +1,7 @@
 import { Application } from "https://deno.land/x/oak/mod.ts";
 import { oakCors } from "https://deno.land/x/cors/mod.ts";
 import { Routes } from "./routes.ts";
+import { staticHosting } from "./staticHosting.ts";
 
 const HOST: String = "127.0.0.1";
 const PORT: Number = 8008;
@@ -20,6 +21,7 @@ class Server {
 
   attachMiddlewares() {
     let router = this.routes.getRouter();
+    this.app.use(staticHosting);
     this.app.use(oakCors());
     this.app.use(router.routes());
     this.app.use(router.allowedMethods());

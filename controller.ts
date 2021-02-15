@@ -1,4 +1,4 @@
-import {GlossaryItem,GlossaryListItem} from "./interfaces.ts";
+import { GlossaryItem, GlossaryListItem } from "./interfaces.ts";
 
 export class Controller {
   public dataJson: Array<GlossaryItem>;
@@ -39,12 +39,11 @@ export class Controller {
       );
     }
 
-		if(params.category) {
-			glossaryItems = glossaryItems.filter(
-				(glossaryItem: GlossaryItem) =>
-					glossaryItem.categories.includes(params.category)
-			);
-		}
+    if (params.category) {
+      glossaryItems = glossaryItems.filter((glossaryItem: GlossaryItem) =>
+        glossaryItem.categories.includes(params.category)
+      );
+    }
 
     let startIndex: number = 0;
     if (params.from >= 0) {
@@ -54,8 +53,8 @@ export class Controller {
     if (params.size > 0) {
       fetchSize = params.size;
     } else {
-			fetchSize = glossaryItems.length;
-		}
+      fetchSize = glossaryItems.length;
+    }
 
     let responseList: Array<GlossaryItem> = [];
     let maxIndex = startIndex + fetchSize;
@@ -64,38 +63,46 @@ export class Controller {
         responseList.push(glossaryItems[i]);
       }
     }
-    return responseList.map((listItem:GlossaryItem):GlossaryListItem => 
-			({id:listItem.id,title:listItem.title})
-		);
+    return responseList.map(
+      (listItem: GlossaryItem): GlossaryListItem => ({
+        id: listItem.id,
+        title: listItem.title,
+      })
+    );
   }
 
-	public sortGlossaryList(glossaryItems:Array<GlossaryListItem>) :Array<GlossaryListItem> {
-		return glossaryItems.sort((first:GlossaryListItem,second:GlossaryListItem):number => {
-			if(first.title === second.title) return 0;
-			else if(first.title > second.title) return 1;
-			else return -1;
-		});
-	}
-
-  public parseGetGlossaryItemParam(params: {contentId: string}): {contentId: number} {
-    return { contentId: parseInt(params.contentId)};
+  public sortGlossaryList(
+    glossaryItems: Array<GlossaryListItem>
+  ): Array<GlossaryListItem> {
+    return glossaryItems.sort(
+      (first: GlossaryListItem, second: GlossaryListItem): number => {
+        if (first.title === second.title) return 0;
+        else if (first.title > second.title) return 1;
+        else return -1;
+      }
+    );
   }
 
-  public getGlossaryItem(params: {contentId: number}): GlossaryItem|object {
+  public parseGetGlossaryItemParam(params: {
+    contentId: string;
+  }): { contentId: number } {
+    return { contentId: parseInt(params.contentId) };
+  }
+
+  public getGlossaryItem(params: { contentId: number }): GlossaryItem | object {
     let contentId: number = 1;
     if (params.contentId) {
       contentId = params.contentId;
     }
 
-    let getGlossaryDocument = this.dataJson.find((data) => 
-      data.id == contentId
+    let getGlossaryDocument = this.dataJson.find(
+      (data) => data.id == contentId
     );
-    
-    if(getGlossaryDocument) {
+
+    if (getGlossaryDocument) {
       return getGlossaryDocument;
     } else {
       return {};
     }
-
   }
 }

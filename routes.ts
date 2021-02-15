@@ -41,15 +41,17 @@ export class Routes {
     const glossaryList = this.controller.getGlossaryList(
       parsedGlossaryListParams
     );
-		const glossaryListSorted = this.controller.sortGlossaryList(
-			glossaryList
-		);
+    const glossaryListSorted = this.controller.sortGlossaryList(glossaryList);
     response.body = glossaryListSorted;
   }
 
   public getGlossaryItem({ params, response }: { params: any; response: any }) {
-    let parsedGetGlossaryItemParams = this.controller.parseGetGlossaryItemParam(params);
-    response.body = this.controller.getGlossaryItem(parsedGetGlossaryItemParams);
+    let parsedGetGlossaryItemParams = this.controller.parseGetGlossaryItemParam(
+      params
+    );
+    response.body = this.controller.getGlossaryItem(
+      parsedGetGlossaryItemParams
+    );
   }
 
   public getRouter() {
