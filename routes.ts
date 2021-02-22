@@ -24,6 +24,7 @@ export class Routes {
   public attachRoutes() {
     this.router
       .get("/glossary", this.getGlossaryList.bind(this))
+      .get("/glossary/all", this.getAllGlossaryItems.bind(this))
       .get("/glossary/:contentId", this.getGlossaryItem.bind(this));
   }
 
@@ -52,6 +53,10 @@ export class Routes {
     response.body = this.controller.getGlossaryItem(
       parsedGetGlossaryItemParams
     );
+  }
+
+  public getAllGlossaryItems({ response }: { response: any }) {
+    response.body = this.controller.getAllGlossaryItems();
   }
 
   public getRouter() {

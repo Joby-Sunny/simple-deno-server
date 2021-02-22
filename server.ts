@@ -21,8 +21,8 @@ class Server {
 
   attachMiddlewares() {
     let router = this.routes.getRouter();
-    this.app.use(staticHosting);
     this.app.use(oakCors());
+    this.app.use(staticHosting);
     this.app.use(router.routes());
     this.app.use(router.allowedMethods());
   }

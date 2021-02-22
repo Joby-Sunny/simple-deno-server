@@ -105,4 +105,8 @@ export class Controller {
       return {};
     }
   }
+
+  public getAllGlossaryItems(): Array<GlossaryListItem> {
+    return this.getDataClone();
+  }
 }
