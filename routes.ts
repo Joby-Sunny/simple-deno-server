@@ -55,8 +55,23 @@ export class Routes {
     );
   }
 
-  public getAllGlossaryItems({ response }: { response: any }) {
-    response.body = this.controller.getAllGlossaryItems();
+  public getAllGlossaryItems({
+    request,
+    response,
+  }: {
+    request: any;
+    response: any;
+  }) {
+    const parsedQueryParams = parseQueryParams(request.url.search.substr(1));
+    const parsedGlossaryListParams = this.controller.parseGlossaryListParams(
+      parsedQueryParams
+    );
+
+    const glossaryList = this.controller.getAllGlossaryItems(
+      parsedGlossaryListParams
+    );
+
+    response.body = this.controller.sortGlossaryList(glossaryList);
   }
 
   public getRouter() {

@@ -106,7 +106,17 @@ export class Controller {
     }
   }
 
-  public getAllGlossaryItems(): Array<GlossaryListItem> {
-    return this.getDataClone();
+  public getAllGlossaryItems(params: any): Array<GlossaryListItem> {
+    let glossaryItems = this.getDataClone();
+
+    if (params.search) {
+      glossaryItems = glossaryItems.filter(
+        (glossaryItem: GlossaryItem) =>
+          glossaryItem.title
+            .toLowerCase()
+            .search(params.search.toLowerCase()) >= 0
+      );
+    }
+    return glossaryItems;
   }
 }
